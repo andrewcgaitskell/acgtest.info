@@ -1,7 +1,5 @@
 upstream backend {
-    server backend1.example.com       weight=5;
-    server backend2.example.com:8080;
-    server unix:/tmp/backend3;
+    server http://unix:/var/www/acgtest.info/server/wsgi/flaskapp1/project1.sock;
 }
 
 server {
@@ -16,6 +14,7 @@ server {
                 try_files $uri $uri/ =404;
         }
         
-        location / {
-                proxy_pass http://backend;
+        location /project1/ {
+                 include proxy_params;
+                 proxy_pass http://backend;
         }
