@@ -1,9 +1,9 @@
 server {
     listen 80;
-    server_name acgdata.info www.acgdata.info;
+    server_name acgtest.info www.acgtest.info;
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/home/sammy/myproject/myproject.sock;
+        proxy_pass http://unix:/etc/nginx/sites-available/project1myproject.sock;
     }
 }
