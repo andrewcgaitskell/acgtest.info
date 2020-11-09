@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name acgdata.info www.acgdata.info;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/sammy/myproject/myproject.sock;
+    }
+}
