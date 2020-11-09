@@ -1,4 +1,5 @@
 python3 -m venv env
+/var/www/acgtest.info/server/wsgi/flaskapp1
 
 source /home/andrew_gaitskell/env/bin/activate
 
