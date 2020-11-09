@@ -4,6 +4,6 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/etc/nginx/sites-available/project1myproject.sock;
+        proxy_pass http://unix:/var/www/acgtest.info/server/wsgi/flaskapp1/project1.sock;
     }
 }
