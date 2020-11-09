@@ -1,5 +1,5 @@
 upstream backend {
-    server http://unix:/var/www/acgtest.info/server/wsgi/flaskapp1/project1.sock;
+    server unix:/var/www/acgtest.info/server/wsgi/flaskapp1/project1.sock;
 }
 
 server {
