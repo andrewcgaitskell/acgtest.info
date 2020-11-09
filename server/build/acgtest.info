@@ -18,3 +18,4 @@ server {
                  include proxy_params;
                  proxy_pass http://backend;
         }
+}
