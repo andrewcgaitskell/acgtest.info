@@ -1,6 +1,8 @@
 sudo systemctl stop project1
 sudo systemctl disable project1
 
+sudo systemctl daemon-reload
+
 sudo cp /var/www/acgtest.info/server/wsgi/flaskapp1/project1.service.txt /etc/systemd/system/project1.service
 
 sudo systemctl start project1
