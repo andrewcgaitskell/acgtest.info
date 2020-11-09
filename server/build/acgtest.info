@@ -14,7 +14,7 @@ server {
                 try_files $uri $uri/ =404;
         }
         
-        location /project1/ {
+        location /project1 {
                  include proxy_params;
                  proxy_pass http://backend;
         }
