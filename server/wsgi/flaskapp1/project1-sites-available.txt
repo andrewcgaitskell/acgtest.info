@@ -1,9 +1,0 @@
-server {
-    listen 80;
-    server_name acgtest.info www.acgtest.info;
-
-    location /project1/ {
-        include proxy_params;
-        proxy_pass http://unix:/var/www/acgtest.info/server/wsgi/flaskapp1/project1.sock;
-    }
-}
