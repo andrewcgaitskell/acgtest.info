@@ -1,51 +1,77 @@
-# -*- coding: utf-8 -*-
-
-# Run this app with `python app.py` and
-# visit http://127.0.0.1:8050/ in your web browser.
-import flask
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 import pandas as pd
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+import eventlet
+import json
+from flask import Flask, render_template
+from flask_mqtt import Mqtt
+from flask_socketio import SocketIO
+from flask_bootstrap import Bootstrap
 
-server = flask.Flask(__name__)
-app = dash.Dash(__name__, server=server,external_stylesheets=external_stylesheets)
+eventlet.monkey_patch()
 
-app.config.update({
-    'url_base_pathname': '/dashboards1',
-    # as the proxy server will remove the prefix
-    ##'routes_pathname_prefix': '/server/gunicorn/dashboards1/env/bin/',
-    'routes_pathname_prefix': '/dashboards1',
-    # the front-end will prefix this string to the requests
-    # that are made to the proxy server
-    'requests_pathname_prefix': '/dashboards1'
-})
+app = Flask(__name__)
+app.config['SECRET'] = 'my secret key'
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['MQTT_BROKER_URL'] = 'broker.hivemq.com'
+app.config['MQTT_BROKER_PORT'] = 1883
+app.config['MQTT_USERNAME'] = ''
+app.config['MQTT_PASSWORD'] = ''
+app.config['MQTT_KEEPALIVE'] = 5
+app.config['MQTT_TLS_ENABLED'] = False
+app.config['MQTT_CLEAN_SESSION'] = True
 
-##app.css.config.serve_locally = True
-##app.scripts.config.serve_locally = True
+# Parameters for SSL enabled
+# app.config['MQTT_BROKER_PORT'] = 8883
+# app.config['MQTT_TLS_ENABLED'] = True
+# app.config['MQTT_TLS_INSECURE'] = True
+# app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
 
-# assume you have a "long-form" data frame
-# see https://plotly.com/python/px-arguments/ for more options
-df = pd.DataFrame({
-    "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-    "Amount": [4, 1, 2, 2, 4, 5],
-    "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"]
-})
+mqtt = Mqtt(app)
+socketio = SocketIO(app)
+bootstrap = Bootstrap(app)
 
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
-app.layout = html.Div(children=[
-    html.H1(children='Hello Dash'),
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    html.Div(children='''
-        Dash: A web application framework for Python.
-    '''),
 
-    dcc.Graph(
-        id='example-graph',
-        figure=fig
+@socketio.on('publish')
+def handle_publish(json_str):
+    data = json.loads(json_str)
+    mqtt.publish(data['topic'], data['message'])
+
+
+@socketio.on('subscribe')
+def handle_subscribe(json_str):
+    data = json.loads(json_str)
+    mqtt.subscribe(data['topic'])
+
+
+@socketio.on('unsubscribe_all')
+def handle_unsubscribe_all():
+    mqtt.unsubscribe_all()
+
+
+@mqtt.on_message()
+def handle_mqtt_message(client, userdata, message):
+    data = dict(
+        topic=message.topic,
+        payload=message.payload.decode()
     )
-])
+    socketio.emit('mqtt_message', data=data)
+
+
+@mqtt.on_log()
+def handle_logging(client, userdata, level, buf):
+    print(level, buf)
+
+
+if __name__ == '__main__':
+    # important: Do not use reloader because this will create two Flask instances.
+    # Flask-MQTT only supports running with one instance
+    socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False, debug=False)
