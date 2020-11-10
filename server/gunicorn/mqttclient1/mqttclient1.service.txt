@@ -3,11 +3,16 @@ Description=uWSGI instance to serve myproject
 After=network.target
 
 [Service]
+PROJECT_NAME=mqttclient1
+FRAMEWORK=gunicorn
+DOMAIN=acgtest.info
+PORT=5005
+
 User=webuser
 Group=www-data
-WorkingDirectory=/var/www/acgtest.info/server/gunicorn/dashboards1
-Environment="PATH=/var/www/acgtest.info/server/gunicorn/dashboards1/env/bin"
-ExecStart=/var/www/acgtest.info/server/gunicorn/dashboards1/env/bin/gunicorn --workers 3 --bind 127.0.0.1:5004 -m 007 app:server
+WorkingDirectory=/var/www/$DOMAIN/server/$FRAMEWORK/$PROJECT_NAME
+Environment="PATH=/var/www/$DOMAIN/server/$FRAMEWORK/$PROJECT_NAME/env/bin"
+ExecStart=/var/www/$DOMAIN/server/$FRAMEWORK/$PROJECT_NAME/env/bin/gunicorn --workers 3 --bind 127.0.0.1:$PORT -m 007 app:server
 
 
 [Install]
