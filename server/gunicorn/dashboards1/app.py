@@ -14,7 +14,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.config.update({
-    #'url_base_pathname': '/showtemperature1/',
+    'url_base_pathname': '/server/gunicorn/dashboards1/env/bin/',
     # as the proxy server will remove the prefix
     'routes_pathname_prefix': '/server/gunicorn/dashboards1/env/bin/',
 
