@@ -1,4 +1,9 @@
-from project3 import app
+PORT = 8000
+ADDRESS = 127.0.0.1
 
-if __name__ == "__main__":
-    app.run()
+from app import app
+
+if __name__ == '__main__':
+    app.run(
+        port=PORT,
+        host=ADDRESS)
