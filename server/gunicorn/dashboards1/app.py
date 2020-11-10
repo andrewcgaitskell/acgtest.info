@@ -18,7 +18,7 @@ app.config.update({
     'url_base_pathname': '',
     # as the proxy server will remove the prefix
     ##'routes_pathname_prefix': '/server/gunicorn/dashboards1/env/bin/',
-    'routes_pathname_prefix': ''
+    'routes_pathname_prefix': '',
     # the front-end will prefix this string to the requests
     # that are made to the proxy server
     'requests_pathname_prefix': ''
