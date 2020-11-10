@@ -15,10 +15,10 @@ server = flask.Flask(__name__)
 app = dash.Dash(__name__, server=server,external_stylesheets=external_stylesheets)
 
 app.config.update({
-    'url_base_pathname': '/',
+    'url_base_pathname': '/dashboards1',
     # as the proxy server will remove the prefix
     ##'routes_pathname_prefix': '/server/gunicorn/dashboards1/env/bin/',
-    'routes_pathname_prefix': '/',
+    'routes_pathname_prefix': '/dashboards1',
     # the front-end will prefix this string to the requests
     # that are made to the proxy server
     'requests_pathname_prefix': ''
