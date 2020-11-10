@@ -21,7 +21,7 @@ app.config.update({
     'routes_pathname_prefix': '/dashboards1',
     # the front-end will prefix this string to the requests
     # that are made to the proxy server
-    'requests_pathname_prefix': ''
+    'requests_pathname_prefix': '/dashboards1'
 })
 
 ##app.css.config.serve_locally = True
