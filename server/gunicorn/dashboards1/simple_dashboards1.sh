@@ -1,1 +1,1 @@
-python app.py
+python wsgi.py
