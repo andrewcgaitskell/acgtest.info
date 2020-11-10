@@ -1,1 +1,1 @@
-python wsgi.py
+python simple.py
