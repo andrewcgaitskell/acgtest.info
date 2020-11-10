@@ -1,1 +1,1 @@
-source /var/www/acgtest.info/server/gunicorn/flaskapp3/env/bin/activate
+source /var/www/acgtest.info/server/gunicorn/dashboards1/env/bin/activate
