@@ -11,24 +11,29 @@ from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 from flask_bootstrap import Bootstrap
 
+import configparser
+config = configparser.ConfigParser()
+config.sections()
+config.read('app.ini')
+
 eventlet.monkey_patch()
 
 app = Flask(__name__)
-app.config['SECRET'] = 'my secret key'
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.config['MQTT_BROKER_URL'] = 'broker.hivemq.com'
-app.config['MQTT_BROKER_PORT'] = 1883
-app.config['MQTT_USERNAME'] = ''
-app.config['MQTT_PASSWORD'] = ''
-app.config['MQTT_KEEPALIVE'] = 5
-app.config['MQTT_TLS_ENABLED'] = False
-app.config['MQTT_CLEAN_SESSION'] = True
+app.config['SECRET'] = config['app']['SECRET']
+app.config['TEMPLATES_AUTO_RELOAD'] = config['app']['SECRET']
+app.config['MQTT_BROKER_URL'] = config['app']['MQTT_BROKER_URL']
+app.config['MQTT_BROKER_PORT'] = config['app']['MQTT_BROKER_PORT']
+app.config['MQTT_USERNAME'] = config['app']['MQTT_USERNAME']
+app.config['MQTT_PASSWORD'] = config['app']['MQTT_PASSWORD']
+app.config['MQTT_KEEPALIVE'] = config['app']['MQTT_KEEPALIVE']
+app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
+app.config['MQTT_CLEAN_SESSION'] = config['app']['MQTT_CLEAN_SESSION']
 
 # Parameters for SSL enabled
-# app.config['MQTT_BROKER_PORT'] = 8883
-# app.config['MQTT_TLS_ENABLED'] = True
-# app.config['MQTT_TLS_INSECURE'] = True
-# app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
+app.config['MQTT_BROKER_PORT'] = 8883
+app.config['MQTT_TLS_ENABLED'] = True
+app.config['MQTT_TLS_INSECURE'] = True
+app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
 
 mqtt = Mqtt(app)
 socketio = SocketIO(app)
