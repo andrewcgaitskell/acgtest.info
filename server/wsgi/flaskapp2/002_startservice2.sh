@@ -1,7 +1,7 @@
 sudo systemctl stop project2
 sudo systemctl disable project2
 
-sudo cp /var/www/acgtest.info/server/wsgi/flaskapp1/project2.service.txt /etc/systemd/system/project2.service
+sudo cp /var/www/acgtest.info/server/wsgi/flaskapp2/project2.service.txt /etc/systemd/system/project2.service
 
 sudo systemctl daemon-reload
 
