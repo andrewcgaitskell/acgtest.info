@@ -1,14 +1,14 @@
-sudo systemctl stop project3
-sudo systemctl disable project3
+sudo systemctl stop dashboards1
+sudo systemctl disable dashboards1
 
-sudo cp /var/www/acgtest.info/server/gunicorn/flaskapp3/project3.service.txt /etc/systemd/system/project3.service
+sudo cp /var/www/acgtest.info/server/gunicorn/dashboards1/dashboards1.service.txt /etc/systemd/system/dashboards1.service
 
 sudo systemctl daemon-reload
 
-sudo systemctl start project3
-sudo systemctl enable project3
+sudo systemctl start dashboards1
+sudo systemctl enable dashboards1
 
-sudo systemctl status project3
+sudo systemctl status dashboards1
 
 sudo cp /var/www/acgtest.info/server/build/acgtest.info /etc/nginx/sites-available/acgtest.info
 
