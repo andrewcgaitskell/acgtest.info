@@ -21,7 +21,7 @@ app.config.update({
 
     # the front-end will prefix this string to the requests
     # that are made to the proxy server
-    'requests_pathname_prefix': '/pompidom3/'
+    'requests_pathname_prefix': '/server/gunicorn/dashboards1/env/bin/'
 })
 
 app.css.config.serve_locally = True
