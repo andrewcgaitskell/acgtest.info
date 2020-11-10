@@ -30,10 +30,10 @@ app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
 app.config['MQTT_CLEAN_SESSION'] = config['app']['MQTT_CLEAN_SESSION']
 
 # Parameters for SSL enabled
-app.config['MQTT_BROKER_PORT'] = 8883
-app.config['MQTT_TLS_ENABLED'] = True
-app.config['MQTT_TLS_INSECURE'] = True
-app.config['MQTT_TLS_CA_CERTS'] = 'ca.crt'
+app.config['MQTT_BROKER_PORT'] = config['app']['MQTT_BROKER_PORT']
+app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
+app.config['MQTT_TLS_INSECURE'] = config['app']['MQTT_TLS_INSECURE']
+app.config['MQTT_TLS_CA_CERTS'] = config['app']['MQTT_TLS_CA_CERTS']
 
 mqtt = Mqtt(app)
 socketio = SocketIO(app)
@@ -79,4 +79,4 @@ def handle_logging(client, userdata, level, buf):
 if __name__ == '__main__':
     # important: Do not use reloader because this will create two Flask instances.
     # Flask-MQTT only supports running with one instance
-    socketio.run(app, host='0.0.0.0', port=5000, use_reloader=False, debug=False)
+    socketio.run(app, host='0.0.0.0', port=5005, use_reloader=False, debug=False)
