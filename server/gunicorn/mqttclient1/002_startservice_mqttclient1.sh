@@ -1,14 +1,17 @@
-sudo systemctl stop dashboards1
-sudo systemctl disable dashboards1
+PROJECT_NAME = "mqttclient1"
+FRAMEWORK = "gunicorn"
 
-sudo cp /var/www/acgtest.info/server/gunicorn/dashboards1/dashboards1.service.txt /etc/systemd/system/dashboards1.service
+sudo systemctl stop mqttclient1
+sudo systemctl disable mqttclient1
+
+sudo cp /var/www/acgtest.info/server/$FRAMEWORK/$PROJECT_NAME/$PROJECT_NAME.service.txt /etc/systemd/system/$PROJECT_NAME.service
 
 sudo systemctl daemon-reload
 
-sudo systemctl start dashboards1
-sudo systemctl enable dashboards1
+sudo systemctl start $PROJECT_NAME
+sudo systemctl enable $PROJECT_NAME
 
-sudo systemctl status dashboards1
+sudo systemctl status $PROJECT_NAME
 
 sudo cp /var/www/acgtest.info/server/build/acgtest.info /etc/nginx/sites-available/acgtest.info
 
