@@ -1,4 +1,4 @@
-from project2 import app
+from project3 import app
 
 if __name__ == "__main__":
     app.run()
