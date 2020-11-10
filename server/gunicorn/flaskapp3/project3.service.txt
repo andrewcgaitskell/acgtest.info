@@ -5,9 +5,9 @@ After=network.target
 [Service]
 User=webuser
 Group=www-data
-WorkingDirectory=/var/www/acgtest.info/server/wsgi/flaskapp2
-Environment="PATH=/var/www/acgtest.info/server/wsgi/flaskapp2/env/bin"
-ExecStart=/var/www/acgtest.info/server/wsgi/flaskapp2/env/bin/uwsgi --ini project2.ini
+WorkingDirectory=/var/www/acgtest.info/server/gunicorn/flaskapp3
+Environment="PATH=/var/www/acgtest.info/server/gunicorn/flaskapp3/env/bin"
+ExecStart=/var/www/acgtest.info/server/gunicorn/flaskapp3/env/bin/uwsgi --ini project3.ini
 
 [Install]
 WantedBy=multi-user.target
