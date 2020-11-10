@@ -1,0 +1,14 @@
+[Unit]
+Description=uWSGI instance to serve myproject
+After=network.target
+
+[Service]
+User=webuser
+Group=www-data
+WorkingDirectory=/var/www/acgtest.info/server/gunicorn/flaskapp3
+Environment="PATH=/var/www/acgtest.info/server/gunicorn/flaskapp3/env/bin"
+ExecStart=/var/www/acgtest.info/server/gunicorn/flaskapp3/env/bin/gunicorn --workers 3 --bind 127.0.0.1:5003 -m 007 wsgi:app
+
+
+[Install]
+WantedBy=multi-user.target
