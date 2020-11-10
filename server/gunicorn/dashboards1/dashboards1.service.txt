@@ -7,7 +7,7 @@ User=webuser
 Group=www-data
 WorkingDirectory=/var/www/acgtest.info/server/gunicorn/dashboards1
 Environment="PATH=/var/www/acgtest.info/server/gunicorn/dashboards1/env/bin"
-ExecStart=/var/www/acgtest.info/server/gunicorn/dashboards1/env/bin/gunicorn --workers 3 --bind 127.0.0.1:5004 -m 007 app1:server
+ExecStart=/var/www/acgtest.info/server/gunicorn/dashboards1/env/bin/gunicorn --workers 3 --bind 127.0.0.1:5004 -m 007 app:server
 
 
 [Install]
