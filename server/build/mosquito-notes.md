@@ -83,14 +83,14 @@ To enable SSL encryption, we need to tell Mosquitto where our Let’s Encrypt ce
 
 Paste in the following at the end of the file, leaving the two lines we already added:
 
-/etc/mosquitto/conf.d/default.conf
-. . .
-listener 1883 localhost
+ 
+    
+    listener 1883 localhost
 
-listener 8883
-certfile /etc/letsencrypt/live/acgtest.info/cert.pem
-cafile /etc/letsencrypt/live/acgtest.info/chain.pem
-keyfile /etc/letsencrypt/live/acgtest.info/privkey.pem
+    listener 8883
+    certfile /etc/letsencrypt/live/acgtest.info/cert.pem
+    cafile /etc/letsencrypt/live/acgtest.info/chain.pem
+    keyfile /etc/letsencrypt/live/acgtest.info/privkey.pem
 
 
 Again, be sure to leave a trailing newline at the end of the file.
@@ -101,17 +101,19 @@ listener 8883 sets up an encrypted listener on port 8883. This is the standard p
 
 Save and exit the file, then restart Mosquitto to update the settings:
 
-sudo systemctl restart mosquitto
+    sudo systemctl restart mosquitto
 
 Update the firewall to allow connections to port 8883.
 
 Now we test again using mosquitto_pub, with a few different options for SSL:
 
-mosquitto_pub -h mqtt.example.com -t test -m "hello again" -p 8883 --capath /etc/ssl/certs/ -u "sammy" -P "password"
+    mosquitto_pub -h mqtt.example.com -t test -m "hello again" -p 8883 --capath /etc/ssl/certs/ -u "sammy" -P "password"
 
 Note that we’re using the full hostname instead of localhost. Because our SSL certificate is issued for mqtt.example.com, if we attempt a secure connection to localhost we’ll get an error saying the hostname does not match the certificate hostname (even though they both point to the same Mosquitto server).
 
---capath /etc/ssl/certs/ enables SSL for mosquitto_pub, and tells it where to look for root certificates. These are typically installed by your operating system, so the path is different for Mac OS, Windows, etc. mosquitto_pub uses the root certificate to verify that the Mosquitto server’s certificate was properly signed by the Let’s Encrypt certificate authority. It’s important to note that mosquitto_pub and mosquitto_sub will not attempt an SSL connection without this option (or the similar --cafile option), even if you’re connecting to the standard secure port of 8883.
+--capath /etc/ssl/certs/ enables SSL for mosquitto_pub, and tells it where to look for root certificates.
+
+These are typically installed by your operating system, so the path is different for Mac OS, Windows, etc. mosquitto_pub uses the root certificate to verify that the Mosquitto server’s certificate was properly signed by the Let’s Encrypt certificate authority. It’s important to note that mosquitto_pub and mosquitto_sub will not attempt an SSL connection without this option (or the similar --cafile option), even if you’re connecting to the standard secure port of 8883.
 
 If all goes well with the test, we’ll see hello again show up in the other mosquitto_sub terminal. This means your server is fully set up! If you’d like to extend the MQTT protocol to work with websockets, you can follow the final step.
 
