@@ -107,7 +107,7 @@ Update the firewall to allow connections to port 8883.
 
 Now we test again using mosquitto_pub, with a few different options for SSL:
 
-    mosquitto_pub -h mqtt.example.com -t test -m "hello again" -p 8883 --capath /etc/ssl/certs/ -u "sammy" -P "password"
+    mosquitto_pub -h acgtest.info -t test -m "hello again" -p 8883 --capath /etc/ssl/certs/ -u "mqttuser" -P "mqttuser"
 
 Note that we’re using the full hostname instead of localhost. Because our SSL certificate is issued for mqtt.example.com, if we attempt a secure connection to localhost we’ll get an error saying the hostname does not match the certificate hostname (even though they both point to the same Mosquitto server).
 
