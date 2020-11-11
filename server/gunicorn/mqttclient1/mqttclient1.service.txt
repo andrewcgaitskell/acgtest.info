@@ -12,8 +12,7 @@ User=webuser
 Group=www-data
 WorkingDirectory=/var/www/$DOMAIN/server/$FRAMEWORK/$PROJECT_NAME
 Environment="PATH=/var/www/$DOMAIN/server/$FRAMEWORK/$PROJECT_NAME/env/bin"
-ExecStart=/var/www/$DOMAIN/server/$FRAMEWORK/$PROJECT_NAME/env/bin/gunicorn --workers 1 --bind 127.0.0.1:$PORT -m 007 app:server
-
+ExecStart=/var/www/$DOMAIN/server/$FRAMEWORK/$PROJECT_NAME/env/bin/gunicorn --worker-class eventlet -w 1 module:app
 
 [Install]
 WantedBy=multi-user.target
