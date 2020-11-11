@@ -12,7 +12,7 @@ User=webuser
 Group=www-data
 WorkingDirectory=/var/www/acgtest.info/server/gunicorn/mqttclient1
 Environment="PATH=/var/www/acgtest.info/server/gunicorn/mqttclient1/env/bin"
-ExecStart=/var/www/acgtest.info/server/gunicorn/mqttclient1/env/bin/gunicorn --worker-class eventlet -w 1 module:app
+ExecStart=/var/www/acgtest.info/server/gunicorn/mqttclient1/env/bin/gunicorn --worker-class eventlet -w 1 app:app
 
 [Install]
 WantedBy=multi-user.target
