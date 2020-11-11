@@ -1,12 +1,10 @@
-Step 1 — Installing Mosquitto
-Ubuntu 18.04 has a fairly recent version of Mosquitto in its default software repository, so we can install it from there.
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-18-04
 
-First, log in using your non-root user and update the package lists using apt update:
+    sudo apt update
 
-sudo apt update
-Now, install Mosquitto using apt install:
+    sudo apt install mosquitto mosquitto-clients
 
-sudo apt install mosquitto mosquitto-clients
+
 By default, Ubuntu will start the Mosquitto service after install. Let’s test the default configuration. We’ll use one of the Mosquitto clients we just installed to subscribe to a topic on our broker.
 
 Topics are labels that you publish messages to and subscribe to. They are arranged as a hierarchy, so you could have sensors/outside/temp and sensors/outside/humidity, for example. How you arrange topics is up to you and your needs. Throughout this tutorial we will use a simple test topic to test our configuration changes.
