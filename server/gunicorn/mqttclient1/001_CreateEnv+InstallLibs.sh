@@ -14,7 +14,6 @@ pip install dash_html_components
 pip install plotly
 
 pip install eventlet
-pip install json
 
 pip install configparser
 
