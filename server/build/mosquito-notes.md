@@ -1,5 +1,7 @@
 https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-the-mosquitto-mqtt-messaging-broker-on-ubuntu-18-04
 
+NB: if SSL already enabled, early tests will fail
+
 # Install Broker and Client
 
     sudo apt update
@@ -39,9 +41,9 @@ Now we’ll open up a new configuration file for Mosquitto and tell it to use th
 
 This should open an empty file. Paste in the following:
 
-    /etc/mosquitto/conf.d/default.conf
     allow_anonymous false
     password_file /etc/mosquitto/passwd
+    
 
 Be sure to leave a trailing newline at the end of the file.
 
@@ -50,7 +52,9 @@ allow_anonymous false will disable all non-authenticated connections, and the pa
 Now we need to restart Mosquitto and test our changes.
 
     sudo systemctl restart mosquitto
-
+    
+    sudo systemctl status mosquitto
+    
 Try to publish a message without a password:
 
     mosquitto_pub -h localhost -t "test" -m "hello world"
@@ -75,15 +79,13 @@ Now publish a message with your other terminal, again using the username and pas
 
 The message should go through as in Step 1. We’ve successfully added password protection to Mosquitto. Unfortunately, we’re sending passwords unencrypted over the internet. We’ll fix that next by adding SSL encryption to Mosquitto.
 
-Step 3 — Configuring MQTT SSL
+# Step 3 — Configuring MQTT SSL
 
 To enable SSL encryption, we need to tell Mosquitto where our Let’s Encrypt certificates are stored. Open up the configuration file we previously started:
 
     sudo nano /etc/mosquitto/conf.d/default.conf
 
 Paste in the following at the end of the file, leaving the two lines we already added:
-
- 
     
     listener 1883 localhost
 
@@ -102,7 +104,9 @@ listener 8883 sets up an encrypted listener on port 8883. This is the standard p
 Save and exit the file, then restart Mosquitto to update the settings:
 
     sudo systemctl restart mosquitto
-
+    
+    sudo systemctl status mosquitto
+    
 Update the firewall to allow connections to port 8883.
 
 Now we test again using mosquitto_pub, with a few different options for SSL:
@@ -113,29 +117,28 @@ Note that we’re using the full hostname instead of localhost. Because our SSL 
 
 --capath /etc/ssl/certs/ enables SSL for mosquitto_pub, and tells it where to look for root certificates.
 
+/etc/ssl/certs/ - correct for Ubuntu
+
 These are typically installed by your operating system, so the path is different for Mac OS, Windows, etc. mosquitto_pub uses the root certificate to verify that the Mosquitto server’s certificate was properly signed by the Let’s Encrypt certificate authority. It’s important to note that mosquitto_pub and mosquitto_sub will not attempt an SSL connection without this option (or the similar --cafile option), even if you’re connecting to the standard secure port of 8883.
 
 If all goes well with the test, we’ll see hello again show up in the other mosquitto_sub terminal. This means your server is fully set up! If you’d like to extend the MQTT protocol to work with websockets, you can follow the final step.
 
-Step 4 — Configuring MQTT Over Websockets (Optional)
+# Step 4 — Configuring MQTT Over Websockets (Optional)
 
 In order to speak MQTT using JavaScript from within web browsers, the protocol was adapted to work over standard websockets. If you don’t need this functionality, you may skip this step.
 
 We need to add one more listener block to our Mosquitto config:
 
-sudo nano /etc/mosquitto/conf.d/default.conf
+    sudo nano /etc/mosquitto/conf.d/default.conf
+
+
 At the end of the file, add the following:
 
-ssl_certificate /etc/letsencrypt/live/acgtest.info/fullchain.pem; # managed by Certbot
-ssl_certificate_key /etc/letsencrypt/live/acgtest.info/privkey.pem; # managed by Certbot
-
-/etc/mosquitto/conf.d/default.conf
-. . .
-listener 8083
-protocol websockets
-certfile /etc/letsencrypt/live/acgtest.info/cert.pem
-cafile /etc/letsencrypt/live/acgtest.info/chain.pem
-keyfile /etc/letsencrypt/live/acgtest.info/privkey.pem
+    listener 8083
+    protocol websockets
+    certfile /etc/letsencrypt/live/acgtest.info/cert.pem
+    cafile /etc/letsencrypt/live/acgtest.info/chain.pem
+    keyfile /etc/letsencrypt/live/acgtest.info/privkey.pem
 
 
 Again, be sure to leave a trailing newline at the end of the file.
@@ -144,7 +147,9 @@ This is mostly the same as the previous block, except for the port number and th
 
 Save and exit the file, then restart Mosquitto.
 
-sudo systemctl restart mosquitto
+    sudo systemctl restart mosquitto
+
+    sudo systemctl status mosquitto
 
 Now, open up port 8083 in the firewall.
 
