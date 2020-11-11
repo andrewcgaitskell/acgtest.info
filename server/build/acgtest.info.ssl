@@ -1,4 +1,4 @@
-erver {
+server {
         root /var/www/acgtest.info;
         index index.html;
         server_name acgtest.info www.acgtest.info;
