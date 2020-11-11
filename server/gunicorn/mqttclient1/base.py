@@ -9,10 +9,12 @@ config = configparser.ConfigParser()
 config.sections()
 config.read('app.ini')
 
+username = config['app']['MQTT_USERNAME']
+password = config['app']['MQTT_PASSWORD']
 
 auth = {
-  'username':"ciscohackhub.azure-devices.net/lora1",
-  'password':"SharedAccessSignature sr=ciscohackhub.azure-devices.net%2Fdevices%2Flora1&sig=xxxx&se=1463048772"
+  'username':username,
+  'password':password
 }
 
 tls = {
@@ -20,7 +22,7 @@ tls = {
   'tls_version':ssl.PROTOCOL_TLSv1
 }
 
-publish.single("devices/lora1/messages/events/",
+publish.single("devices/events/",
   payload="hello world",
   hostname="acgtest.info",
   client_id="acgtest",
