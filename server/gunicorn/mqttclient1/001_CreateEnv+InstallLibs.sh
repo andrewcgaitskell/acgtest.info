@@ -26,5 +26,6 @@ pip install pandas
 pip install flask_mqtt
 pip install flask_socketio
 pip install flask_bootstrap
+pip install eventlet
 
 deactivate
