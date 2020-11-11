@@ -3,11 +3,6 @@ Description=uWSGI instance to serve myproject
 After=network.target
 
 [Service]
-PROJECT_NAME=mqttclient1
-FRAMEWORK=gunicorn
-DOMAIN=acgtest.info
-PORT=5005
-
 User=webuser
 Group=www-data
 WorkingDirectory=/var/www/acgtest.info/server/gunicorn/mqttclient1
