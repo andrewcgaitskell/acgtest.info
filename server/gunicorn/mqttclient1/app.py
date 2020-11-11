@@ -26,11 +26,10 @@ app.config['MQTT_BROKER_PORT'] = config['app']['MQTT_BROKER_PORT']
 app.config['MQTT_USERNAME'] = config['app']['MQTT_USERNAME']
 app.config['MQTT_PASSWORD'] = config['app']['MQTT_PASSWORD']
 app.config['MQTT_KEEPALIVE'] = config['app']['MQTT_KEEPALIVE']
-app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
 app.config['MQTT_CLEAN_SESSION'] = config['app']['MQTT_CLEAN_SESSION']
 
 # Parameters for SSL enabled
-app.config['MQTT_BROKER_PORT'] = config['app']['MQTT_BROKER_PORT']
+app.config['MQTT_BROKER_PORT'] = int(config['app']['MQTT_BROKER_PORT'])
 app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
 app.config['MQTT_TLS_INSECURE'] = config['app']['MQTT_TLS_INSECURE']
 app.config['MQTT_TLS_CA_CERTS'] = config['app']['MQTT_TLS_CA_CERTS']
