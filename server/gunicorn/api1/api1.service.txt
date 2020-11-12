@@ -3,11 +3,12 @@ Description=uWSGI instance to serve myproject
 After=network.target
 
 [Service]
+EnvironmentFile=service.conf
 User=webuser
 Group=www-data
-WorkingDirectory=/var/www/acgtest.info/server/gunicorn/mqttclient1
-Environment="PATH=/var/www/acgtest.info/server/gunicorn/mqttclient1/env/bin"
-ExecStart=/var/www/acgtest.info/server/gunicorn/mqttclient1/env/bin/gunicorn --bind 127.0.0.1:5005 --worker-class eventlet -w 1 app:app
+WorkingDirectory=/var/www/acgtest.info/server/${FRAMEWORK}/${PROJECT}
+Environment="PATH=/var/www/acgtest.info/server/${FRAMEWORK}/${PROJECT}/env/bin"
+ExecStart=/var/www/acgtest.info/server/${FRAMEWORK}/${PROJECT}/env/bin/${FRAMEWORK} --bind 127.0.0.1:5006 --worker-class eventlet -w 1 app:app
 
 [Install]
 WantedBy=multi-user.target
