@@ -1,10 +1,10 @@
-PROJECT_NAME='mqttclient1'
+PROJECT_NAME='api1'
 FRAMEWORK='gunicorn'
 
-sudo systemctl stop mqttclient1
-sudo systemctl disable mqttclient1
+sudo systemctl stop $PROJECT_NAME
+sudo systemctl disable $PROJECT_NAME
 
-sudo cp /var/www/acgtest.info/server/gunicorn/mqttclient1/mqttclient1.service.txt /etc/systemd/system/mqttclient1.service
+sudo cp /var/www/acgtest.info/server/$FRAMEWORK/$PROJECT_NAME/$PROJECT_NAME.service.txt /etc/systemd/system/$PROJECT_NAME.service
 
 sudo systemctl daemon-reload
 
