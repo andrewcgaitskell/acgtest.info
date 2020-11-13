@@ -52,6 +52,15 @@ server {
                  proxy_headers_hash_bucket_size 256;
                  proxy_pass http://127.0.0.1:5005/;
         }
+        location /api1 {
+                 include proxy_params;
+                 proxy_set_header X-Real-IP  $remote_addr;
+                 proxy_set_header X-Forwarded-For $remote_addr;
+                 proxy_set_header Host $host;
+                 proxy_headers_hash_max_size 1024;
+                 proxy_headers_hash_bucket_size 256;
+                 proxy_pass http://127.0.0.1:5006/;
+        }
     listen [::]:443 ssl ipv6only=on; # managed by Certbot
     listen 443 ssl; # managed by Certbot
     ssl_certificate /etc/letsencrypt/live/acgtest.info/fullchain.pem; # managed by Certbot
