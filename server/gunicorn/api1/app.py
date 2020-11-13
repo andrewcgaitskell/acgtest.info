@@ -9,6 +9,11 @@ app = Flask(__name__, static_url_path='')
 #    def get(self):
 #        return {'hello': 'world'}
 
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', name=name)
+
 #api.add_resource(HelloWorld, '/')
 @app.route('/index')
 def index():
