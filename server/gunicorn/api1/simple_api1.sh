@@ -1,2 +1,1 @@
-export FLASK_APP=app.py
-python -m flask run --host=0.0.0.0
+gunicorn --worker-class eventlet -w 1 wsi:app
