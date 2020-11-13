@@ -45,11 +45,11 @@ def handle_mqtt_message(client, userdata, message):
     current_state = data.payload
 
 @app.route('/lighton')
-def light():
+def lighton():
     mqtt.publish('home/light/command', '1')  
 
 @app.route('/lightoff')
-def light():
+def lightoff():
     mqtt.publish('home/light/command', '0')  
     
 @app.route('/hello/')
