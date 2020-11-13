@@ -2,7 +2,7 @@ from flask import Flask, render_template
 #from flask_restful import Resource, Api
 from markupsafe import escape
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 #api = Api(app)
 
 #class HelloWorld(Resource):
