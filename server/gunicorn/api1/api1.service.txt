@@ -3,7 +3,7 @@ Description=uWSGI instance to serve myproject
 After=network.target
 
 [Service]
-EnvironmentFile=service.conf
+EnvironmentFile=/var/www/acgtest.info/server/gunicorn/api1/service.conf
 User=webuser
 Group=www-data
 WorkingDirectory=/var/www/acgtest.info/server/${FRAMEWORK}/${PROJECT}
