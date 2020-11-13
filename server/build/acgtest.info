@@ -2,6 +2,7 @@ server {
         root /var/www/acgtest.info;
         index index.html;
         server_name acgtest.info www.acgtest.info;
+        access_log  /var/www/acgtest.info/access.log;
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
