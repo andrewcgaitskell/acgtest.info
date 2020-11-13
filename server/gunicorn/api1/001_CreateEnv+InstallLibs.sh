@@ -18,6 +18,8 @@ pip install Flask
 pip install flask_restful
 pip install gunicorn
 pip install flask_mqtt
+pip install flask_socketio
+
 pip install eventlet
 
 deactivate
