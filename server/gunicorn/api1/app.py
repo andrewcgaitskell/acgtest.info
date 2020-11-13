@@ -46,12 +46,14 @@ def handle_mqtt_message(client, userdata, message):
 
 @app.route('/lighton')
 def lighton():
-    mqtt.publish('home/light/command', '1')  
+    mqtt.publish('home/light/command', '1')
+    return 'light on'
 
 @app.route('/lightoff')
 def lightoff():
-    mqtt.publish('home/light/command', '0')  
-    
+    mqtt.publish('home/light/command', '0') 
+    return 'light off'
+
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
