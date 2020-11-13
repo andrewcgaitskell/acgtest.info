@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, requests
 #from flask_restful import Resource, Api
 from markupsafe import escape
 
@@ -28,6 +28,13 @@ def show_post(post_id):
 def show_subpath(subpath):
     # show the subpath after /path/
     return 'Subpath %s' % escape(subpath)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return 'do the login'
+    else:
+        return 'show the form'
 
 if __name__ == '__main__':
     app.run(debug=True)
