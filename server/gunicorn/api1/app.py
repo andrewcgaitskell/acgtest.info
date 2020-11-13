@@ -9,6 +9,9 @@ import eventlet
 import json
 from flask_mqtt import Mqtt
 
+from flask_socketio import SocketIO
+from flask_bootstrap import Bootstrap
+
 import configparser
 config = configparser.ConfigParser()
 config.sections()
@@ -31,6 +34,8 @@ app.config['MQTT_TLS_INSECURE'] = config['app']['MQTT_TLS_INSECURE']
 app.config['MQTT_TLS_CA_CERTS'] = config['app']['MQTT_TLS_CA_CERTS']
 
 mqtt = Mqtt(app)
+socketio = SocketIO(app)
+bootstrap = Bootstrap(app)
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
