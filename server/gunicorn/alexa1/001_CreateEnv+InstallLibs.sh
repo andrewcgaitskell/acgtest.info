@@ -15,6 +15,7 @@ pip install configparser
 pip install pandas
 pip install wheel
 pip install Flask
+pip install flask-ask
 pip install flask_restful
 pip install gunicorn
 pip install flask_mqtt
