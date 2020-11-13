@@ -5,10 +5,53 @@ from markupsafe import escape
 app = Flask(__name__, static_url_path='')
 #api = Api(app)
 
-#class HelloWorld(Resource):
-#    def get(self):
-#        return {'hello': 'world'}
+import eventlet
+import json
+from flask_mqtt import Mqtt
 
+import configparser
+config = configparser.ConfigParser()
+config.sections()
+config.read('app.ini')
+
+eventlet.monkey_patch()
+
+app.config['SECRET'] = config['app']['SECRET']
+app.config['TEMPLATES_AUTO_RELOAD'] = config['app']['SECRET']
+app.config['MQTT_BROKER_URL'] = config['app']['MQTT_BROKER_URL']
+app.config['MQTT_USERNAME'] = config['app']['MQTT_USERNAME']
+app.config['MQTT_PASSWORD'] = config['app']['MQTT_PASSWORD']
+app.config['MQTT_KEEPALIVE'] = int(config['app']['MQTT_KEEPALIVE'])
+app.config['MQTT_CLEAN_SESSION'] = config['app']['MQTT_CLEAN_SESSION']
+
+# Parameters for SSL enabled
+app.config['MQTT_BROKER_PORT'] = int(config['app']['MQTT_BROKER_PORT'])
+app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
+app.config['MQTT_TLS_INSECURE'] = config['app']['MQTT_TLS_INSECURE']
+app.config['MQTT_TLS_CA_CERTS'] = config['app']['MQTT_TLS_CA_CERTS']
+
+mqtt = Mqtt(app)
+
+@mqtt.on_connect()
+def handle_connect(client, userdata, flags, rc):
+    mqtt.subscribe('home/light/status')
+    
+@mqtt.on_message()
+def handle_mqtt_message(client, userdata, message):
+    data = dict(
+        topic=message.topic,
+        payload=message.payload.decode()
+    )
+    current_state = data.payload
+
+@app.route('/lighton')
+def light():
+    mqtt.publish('home/light/command', '1')  
+
+@app.route('/lightoff')
+def light():
+    mqtt.publish('home/light/command', '0')  
+    
 @app.route('/hello/')
 @app.route('/hello/<name>')
 def hello(name=None):
