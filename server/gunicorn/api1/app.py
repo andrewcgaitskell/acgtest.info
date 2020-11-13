@@ -1,4 +1,4 @@
-from flask import Flask, render_template, requests
+from flask import Flask, render_template, request
 #from flask_restful import Resource, Api
 from markupsafe import escape
 
