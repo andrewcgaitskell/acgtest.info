@@ -1,6 +1,6 @@
 from app import app
 
-PORT = 5004;
+PORT = 5006;
 ADDRESS = '127.0.0.1'
 #ADDRESS = '0.0.0.0'
 
