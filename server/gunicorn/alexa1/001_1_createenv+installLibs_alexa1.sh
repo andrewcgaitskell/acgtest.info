@@ -21,6 +21,9 @@ pip install flask_mqtt
 pip install flask_socketio
 pip install flask_bootstrap
 
+pip install ask-sdk
+pip install ask-sdk-webservice-support
+
 pip install eventlet
 
 deactivate
