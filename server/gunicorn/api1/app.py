@@ -10,7 +10,9 @@ app = Flask(__name__)
 #        return {'hello': 'world'}
 
 #api.add_resource(HelloWorld, '/')
-
+@app.route('/index')
+def index():
+    return index.html
 
 @app.route('/user/<username>')
 def show_user_profile(username):
