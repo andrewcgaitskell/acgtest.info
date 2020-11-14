@@ -1,31 +1,24 @@
-## https://blog.miguelgrinberg.com/post/easy-websockets-with-flask-and-gevent
-
-from flask import Flask, render_template
+from flask import Flask, render_template, Response
 from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
+socketio = SocketIO(app, logger=True, engineio_logger=True)
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@socketio.on('my event', namespace='/test')
-def test_message(message):
-    emit('my response', {'data': message['data']})
-
-@socketio.on('my broadcast event', namespace='/test')
-def test_message(message):
-    emit('my response', {'data': message['data']}, broadcast=True)
-
-@socketio.on('connect', namespace='/test')
+@socketio.on('connect')
 def test_connect():
-    emit('my response', {'data': 'Connected'})
+    emit('message', {'data': 'Connected to server successfully'})
 
-@socketio.on('disconnect', namespace='/test')
-def test_disconnect():
-    print('Client disconnected')
+@socketio.on('message')
+def handle_message(message):
+    print('received message: ' + message)
+
+@socketio.on('message')
+def handle_message(message):
+    send(message)
 
 if __name__ == '__main__':
-    socketio.run(app)
+    socketio.run(app, debug=True)
