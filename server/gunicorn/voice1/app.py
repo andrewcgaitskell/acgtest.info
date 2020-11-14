@@ -11,10 +11,12 @@ def index():
 @socketio.on('connect')
 def test_connect():
     emit('message', {'data': 'Connected to server successfully'})
+    return render_template("message.html", message=message)
 
 @socketio.on('message')
 def handle_message(message):
     print('received message: ' + message)
+    return render_template("message.html", message=message)
 
 @socketio.on('message')
 def handle_message(message):
