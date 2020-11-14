@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PROJECT_NAME='api1'
+PROJECT_NAME='voice1'
 FRAMEWORK='gunicorn'
 
 sudo rm -rf /var/www/acgtest.info/server/$FRAMEWORK/$PROJECT_NAME/env
