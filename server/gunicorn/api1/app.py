@@ -2,7 +2,12 @@ from flask import Flask, render_template, request
 #from flask_restful import Resource, Api
 from markupsafe import escape
 
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+
 app = Flask(__name__, static_url_path='')
+auth = HTTPBasicAuth()
+
 #api = Api(app)
 
 import eventlet
@@ -33,6 +38,16 @@ app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
 app.config['MQTT_TLS_INSECURE'] = config['app']['MQTT_TLS_INSECURE']
 app.config['MQTT_TLS_CA_CERTS'] = config['app']['MQTT_TLS_CA_CERTS']
 
+users = {
+    "webuser": generate_password_hash("w3Bus3R")
+}
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in users and \
+            check_password_hash(users.get(username), password):
+        return username
+
 mqtt = Mqtt(app)
 socketio = SocketIO(app)
 bootstrap = Bootstrap(app)
@@ -50,6 +65,7 @@ def handle_mqtt_message(client, userdata, message):
     current_state = data.payload
 
 @app.route('/lighton')
+@auth.login_required
 def lighton():
     mqtt.publish('home/light/command', '1')
     return 'light on'
