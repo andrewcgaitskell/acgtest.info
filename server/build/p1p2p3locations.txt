@@ -1,0 +1,27 @@
+location /project1 {
+                 include proxy_params;
+                 proxy_set_header X-Real-IP  $remote_addr;
+                 proxy_set_header X-Forwarded-For $remote_addr;
+                 proxy_set_header Host $host;
+                 proxy_headers_hash_max_size 1024;
+                 proxy_headers_hash_bucket_size 256;
+                 proxy_pass http://127.0.0.1:5001/;
+        }
+        location /project2 {
+                 include proxy_params;
+                 proxy_set_header X-Real-IP  $remote_addr;
+                 proxy_set_header X-Forwarded-For $remote_addr;
+                 proxy_set_header Host $host;
+                 proxy_headers_hash_max_size 1024;
+                 proxy_headers_hash_bucket_size 256;
+                 proxy_pass http://127.0.0.1:5002/;
+        }
+        location /project3 {
+                 include proxy_params;
+                 proxy_set_header X-Real-IP  $remote_addr;
+                 proxy_set_header X-Forwarded-For $remote_addr;
+                 proxy_set_header Host $host;
+                 proxy_headers_hash_max_size 1024;
+                 proxy_headers_hash_bucket_size 256;
+                 proxy_pass http://127.0.0.1:5003/;
+        }
