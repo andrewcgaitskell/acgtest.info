@@ -38,8 +38,11 @@ app.config['MQTT_TLS_ENABLED'] = config['app']['MQTT_TLS_ENABLED']
 app.config['MQTT_TLS_INSECURE'] = config['app']['MQTT_TLS_INSECURE']
 app.config['MQTT_TLS_CA_CERTS'] = config['app']['MQTT_TLS_CA_CERTS']
 
+username = config['web']['USERNAME']
+password = config['web']['PASSWORD']
+
 users = {
-    "webuser": generate_password_hash("w3Bus3R")
+    username: generate_password_hash(password)
 }
 
 @auth.verify_password
