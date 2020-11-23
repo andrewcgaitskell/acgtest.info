@@ -23,4 +23,6 @@ pip install flask_bootstrap
 
 pip install eventlet
 
+pip install flask_httpauth
+
 deactivate
