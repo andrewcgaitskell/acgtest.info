@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 
 engine = create_engine('postgresql://pythonuser:pythonuser@localhost:5432/data')
 
-whoami = pd.read_sql_table('tbl_who_am_i',engine, schema='public')
+whoami_df = pd.read_sql_table('tbl_who_am_i',engine, schema='public')
 
 app = Flask(__name__, static_url_path='')
 auth = HTTPBasicAuth()
@@ -77,7 +77,7 @@ def handle_mqtt_message(client, userdata, message):
 
 @app.route('/whoami')
 def whoami():
-    result = whoami.to_json(orient="split")
+    result = whoami_df.to_json(orient="split")
     parsed = json.loads(result)
     response = app.response_class(
         response=json.dumps(parsed),
