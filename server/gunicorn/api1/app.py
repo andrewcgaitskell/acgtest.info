@@ -86,6 +86,12 @@ def whoami():
     )
     return response
 
+@app.route('/whatami/<mac>')
+def whatami():
+    thismac = escape(mac)
+    what = whoami_df.loc[whoami_df['mac'] == 'thismac', 'what'].values[0]
+    return what
+
 @app.route('/lighton')
 @auth.login_required
 def lighton():
