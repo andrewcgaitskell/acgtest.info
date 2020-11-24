@@ -5,6 +5,14 @@ from markupsafe import escape
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 
+import pandas as pd
+
+from sqlalchemy import create_engine
+
+engine = create_engine('postgresql://pythonuser:pythonuser@localhost:5432/data')
+
+whoami = pd.read_sql_table('tbl_who_am_i',engine, schema='public')
+
 app = Flask(__name__, static_url_path='')
 auth = HTTPBasicAuth()
 
