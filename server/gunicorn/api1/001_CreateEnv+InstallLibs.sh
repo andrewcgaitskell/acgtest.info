@@ -14,6 +14,8 @@ pip install configparser
 
 pip install pandas
 
+pip install psycopg2
+
 pip install SQLAlchemy
 
 pip install wheel
