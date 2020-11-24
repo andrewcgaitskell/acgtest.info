@@ -75,6 +75,17 @@ def handle_mqtt_message(client, userdata, message):
     )
     current_state = data.payload
 
+@app.route('/whoami')
+def whoami():
+    result = whoami.to_json(orient="split")
+    parsed = json.loads(result)
+    response = app.response_class(
+        response=json.dumps(parsed),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
 @app.route('/lighton')
 @auth.login_required
 def lighton():
