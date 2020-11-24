@@ -13,6 +13,9 @@ pip install eventlet
 pip install configparser
 
 pip install pandas
+
+pip install SQLAlchemy
+
 pip install wheel
 pip install Flask
 pip install flask_restful
