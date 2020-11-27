@@ -28,4 +28,6 @@ pip install flask_socketio
 pip install flask_bootstrap
 pip install eventlet
 
+pip install paho-mqtt
+
 deactivate
