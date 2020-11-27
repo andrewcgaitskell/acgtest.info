@@ -24,7 +24,7 @@ SUBSCRIBE_TOPIC = "PICTURE"
 
 TLS_CERT_PATH = config['app']['MQTT_TLS_CA_CERTS']
 
-def on_connect(client, userdata, flags, rc):
+def on_connect(client, userdata, rc):
     global connected  # Use global variable
     if rc == 0:
 
