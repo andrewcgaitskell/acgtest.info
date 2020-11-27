@@ -57,6 +57,7 @@ def connect(mqtt_client, mqtt_username, mqtt_password, broker_endpoint, port):
         mqtt_client.on_connect = on_connect
         mqtt_client.on_publish = on_publish
         mqtt_client.on_subscribe = on_subscribe
+        mqtt_client.on_message = on_message
         mqtt_client.tls_set(ca_certs=TLS_CERT_PATH, certfile=None,
                             keyfile=None, cert_reqs=ssl.CERT_REQUIRED,
                             tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
