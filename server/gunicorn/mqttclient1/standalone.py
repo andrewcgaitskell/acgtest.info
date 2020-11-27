@@ -33,7 +33,8 @@ def on_connect(client, userdata, flags, rc):
     else:
         print("[INFO] Error, connection failed")
 
-    client.subscribe("PICTURE") 
+    client.subscribe("PICTURE")
+    client.loop_forever()
     
 def on_publish(client, userdata, result):
     print("Published!")
