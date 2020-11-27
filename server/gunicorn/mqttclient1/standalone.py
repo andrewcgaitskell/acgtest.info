@@ -24,7 +24,7 @@ SUBSCRIBE_TOPIC = "PICTURE"
 
 TLS_CERT_PATH = config['app']['MQTT_TLS_CA_CERTS']
 
-def on_connect(client, userdata, rc):
+def on_connect(client, userdata, flags, rc):
     global connected  # Use global variable
     if rc == 0:
 
@@ -75,10 +75,6 @@ def publish(mqtt_client, topic, payload):
 
     except Exception as e:
         print("[ERROR] Could not publish data, error: {}".format(e))
-
-def on_connect(client, userdata, rc):
-    print("Connect" + str(rc))
-    client.subscribe("PICTURE") 
 
 def on_message(client, userdata, msg):
     print("Topic : ", msg.topic)
