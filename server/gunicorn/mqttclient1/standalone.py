@@ -96,6 +96,7 @@ def main(mqtt_client):
 
 if __name__ == '__main__':
     mqtt_client = mqttClient.Client()
+    mqtt_client.loop_forever()
     while True:
         main(mqtt_client)
         time.sleep(10)
