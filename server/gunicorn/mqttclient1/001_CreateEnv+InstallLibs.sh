@@ -8,17 +8,17 @@ python3 -m venv env
 set -e
 source $PWD/env/bin/activate
 
+pip install wheel
+
 pip install dash
 pip install dash_core_components
 pip install dash_html_components
 pip install plotly
 
-pip install eventlet
-
 pip install configparser
 
 pip install pandas
-pip install wheel
+
 pip install uwsgi
 pip install Flask
 pip install gunicorn
