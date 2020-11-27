@@ -41,6 +41,13 @@ def on_publish(client, userdata, result):
 def on_subscribe(mqttc, obj, mid, granted_qos):
     print("Subscribed: " + str(mid) + " " + str(granted_qos))
 
+def on_message(client, userdata, msg):
+    print("Topic : ", msg.topic)
+    f = open("/var/www/acgtest.info/server/gunicorn/mqttclient1/output.jpg", "w")  #there is a output.jpg which is different
+    f.write(msg.payload)
+    f.close()
+    
+    
 def connect(mqtt_client, mqtt_username, mqtt_password, broker_endpoint, port):
     global connected
 
@@ -79,12 +86,7 @@ def publish(mqtt_client, topic, payload):
     except Exception as e:
         print("[ERROR] Could not publish data, error: {}".format(e))
 
-def on_message(client, userdata, msg):
-    print("Topic : ", msg.topic)
-    f = open("/var/www/acgtest.info/server/gunicorn/mqttclient1/output.jpg", "w")  #there is a output.jpg which is different
-    f.write(msg.payload)
-    f.close()
-    
+
 def main(mqtt_client):
     ##payload = json.dumps({"tls_publish_test": 20})
     ##topic = "{}{}".format(TOPIC, DEVICE_LABEL)
