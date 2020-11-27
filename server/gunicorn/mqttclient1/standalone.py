@@ -12,7 +12,7 @@ PUBLISH_TOPIC = "TakeAPicture"
 SUBSCRIBE_TOPIC = "PICTURE"
 
 DEVICE_LABEL = "truck"
-TLS_CERT_PATH = "industrial.cert"  # Put here the path of your TLS cert
+TLS_CERT_PATH = "/etc/letsencrypt/live/acgtest.info/cert.pem"  # Put here the path of your TLS cert
 
 def on_connect(client, userdata, flags, rc):
     global connected  # Use global variable
@@ -68,7 +68,7 @@ def publish(mqtt_client, topic, payload):
 
 def on_connect(client, userdata, rc):
     print("Connect" + str(rc))
-    client.subscribe("image") 
+    client.subscribe("PICTURE") 
 
 def on_message(client, userdata, msg):
     print "Topic : ", msg.topic
@@ -77,14 +77,14 @@ def on_message(client, userdata, msg):
     f.close()
     
 def main(mqtt_client):
-    payload = json.dumps({"tls_publish_test": 20})
-    topic = "{}{}".format(TOPIC, DEVICE_LABEL)
+    ##payload = json.dumps({"tls_publish_test": 20})
+    ##topic = "{}{}".format(TOPIC, DEVICE_LABEL)
 
     if not connect(mqtt_client, MQTT_USERNAME,
                    MQTT_PASSWORD, BROKER_ENDPOINT, TLS_PORT):
         return False
 
-    publish(mqtt_client, topic, payload)
+    publish(mqtt_client, "TakeAPicture", 1)
 
     return True
 
