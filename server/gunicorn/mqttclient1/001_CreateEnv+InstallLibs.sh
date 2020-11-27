@@ -29,6 +29,5 @@ pip install flask_bootstrap
 pip install eventlet
 
 pip install paho-mqtt
-pip install ssl
 
 deactivate
