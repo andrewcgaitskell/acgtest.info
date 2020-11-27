@@ -37,7 +37,9 @@ def on_connect(client, userdata, flags, rc):
     
 def on_publish(client, userdata, result):
     print("Published!")
-
+    
+def on_subscribe(mqttc, obj, mid, granted_qos):
+    print("Subscribed: " + str(mid) + " " + str(granted_qos))
 
 def connect(mqtt_client, mqtt_username, mqtt_password, broker_endpoint, port):
     global connected
@@ -46,6 +48,7 @@ def connect(mqtt_client, mqtt_username, mqtt_password, broker_endpoint, port):
         mqtt_client.username_pw_set(mqtt_username, password=mqtt_password)
         mqtt_client.on_connect = on_connect
         mqtt_client.on_publish = on_publish
+        mqtt_client.on_subscribe = on_subscribe
         mqtt_client.tls_set(ca_certs=TLS_CERT_PATH, certfile=None,
                             keyfile=None, cert_reqs=ssl.CERT_REQUIRED,
                             tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
@@ -96,7 +99,6 @@ def main(mqtt_client):
 
 if __name__ == '__main__':
     mqtt_client = mqttClient.Client()
-    mqtt_client.loop_forever()
     while True:
         main(mqtt_client)
         time.sleep(10)
