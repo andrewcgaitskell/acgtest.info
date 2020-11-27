@@ -34,7 +34,7 @@ def on_connect(client, userdata, flags, rc):
         print("[INFO] Error, connection failed")
 
     client.subscribe("PICTURE")
-    client.loop_forever()
+    ###client.loop_forever() - wrong place
     
 def on_publish(client, userdata, result):
     print("Published!")
