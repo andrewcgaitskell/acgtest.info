@@ -1,31 +1,18 @@
-
-'''
-Sends data to Ubidots using MQTT over TLS
-
-Example provided by Jose Garcia @Ubidots Developer
-'''
-
 import paho.mqtt.client as mqttClient
 import time
 import json
 import ssl
 
-'''
-global variables
-'''
-
 connected = False  # Stores the connection status
-BROKER_ENDPOINT = "industrial.api.ubidots.com"
+BROKER_ENDPOINT = "acgtest.info"
 TLS_PORT = 8883  # Secure port
 MQTT_USERNAME = ""  # Put here your Ubidots TOKEN
 MQTT_PASSWORD = ""  # Leave this in blank
-TOPIC = "/v1.6/devices/"
+PUBLISH_TOPIC = "TakeAPicture"
+SUBSCRIBE_TOPIC = "PICTURE"
+
 DEVICE_LABEL = "truck"
 TLS_CERT_PATH = "industrial.cert"  # Put here the path of your TLS cert
-
-'''
-Functions to process incoming and outgoing streaming
-'''
 
 def on_connect(client, userdata, flags, rc):
     global connected  # Use global variable
@@ -36,7 +23,8 @@ def on_connect(client, userdata, flags, rc):
     else:
         print("[INFO] Error, connection failed")
 
-
+    client.subscribe("PICTURE") 
+    
 def on_publish(client, userdata, result):
     print("Published!")
 
@@ -78,29 +66,6 @@ def publish(mqtt_client, topic, payload):
     except Exception as e:
         print("[ERROR] Could not publish data, error: {}".format(e))
 
-
-def main(mqtt_client):
-    payload = json.dumps({"tls_publish_test": 20})
-    topic = "{}{}".format(TOPIC, DEVICE_LABEL)
-
-    
-
-    if not connect(mqtt_client, MQTT_USERNAME,
-                   MQTT_PASSWORD, BROKER_ENDPOINT, TLS_PORT):
-        return False
-
-    publish(mqtt_client, topic, payload)
-
-    return True
-
-
-if __name__ == '__main__':
-    mqtt_client = mqttClient.Client()
-    while True:
-        main(mqtt_client)
-        time.sleep(10)
-import paho.mqtt.client as mqtt
-
 def on_connect(client, userdata, rc):
     print("Connect" + str(rc))
     client.subscribe("image") 
@@ -110,11 +75,21 @@ def on_message(client, userdata, msg):
     f = open("/tmp/output.jpg", "w")  #there is a output.jpg which is different
     f.write(msg.payload)
     f.close()
+    
+def main(mqtt_client):
+    payload = json.dumps({"tls_publish_test": 20})
+    topic = "{}{}".format(TOPIC, DEVICE_LABEL)
 
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
+    if not connect(mqtt_client, MQTT_USERNAME,
+                   MQTT_PASSWORD, BROKER_ENDPOINT, TLS_PORT):
+        return False
 
-client.connect("test.mosquitto.org", 1883, 60)
+    publish(mqtt_client, topic, payload)
 
-client.loop_forever()
+    return True
+
+if __name__ == '__main__':
+    mqtt_client = mqttClient.Client()
+    while True:
+        main(mqtt_client)
+        time.sleep(10)
