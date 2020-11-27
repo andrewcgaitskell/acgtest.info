@@ -3,6 +3,17 @@ import time
 import json
 import ssl
 
+import configparser
+config = configparser.ConfigParser()
+config.sections()
+config.read('app.ini')
+
+eventlet.monkey_patch()
+
+MQTT_BROKER_URL = config['app']['MQTT_BROKER_URL']
+MQTT_USERNAME = config['app']['MQTT_USERNAME']
+MQTT_PASSWORD = config['app']['MQTT_PASSWORD']
+
 connected = False  # Stores the connection status
 BROKER_ENDPOINT = "acgtest.info"
 TLS_PORT = 8883  # Secure port
