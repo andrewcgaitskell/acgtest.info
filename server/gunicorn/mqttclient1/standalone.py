@@ -15,15 +15,12 @@ MQTT_USERNAME = config['app']['MQTT_USERNAME']
 MQTT_PASSWORD = config['app']['MQTT_PASSWORD']
 
 connected = False  # Stores the connection status
-BROKER_ENDPOINT = "acgtest.info"
+BROKER_ENDPOINT = MQTT_BROKER_URL
 TLS_PORT = 8883  # Secure port
-MQTT_USERNAME = ""  # Put here your Ubidots TOKEN
-MQTT_PASSWORD = ""  # Leave this in blank
 PUBLISH_TOPIC = "TakeAPicture"
 SUBSCRIBE_TOPIC = "PICTURE"
 
-DEVICE_LABEL = "truck"
-TLS_CERT_PATH = "/etc/letsencrypt/live/acgtest.info/cert.pem"  # Put here the path of your TLS cert
+TLS_CERT_PATH = config['app']['MQTT_TLS_CA_CERTS']
 
 def on_connect(client, userdata, flags, rc):
     global connected  # Use global variable
