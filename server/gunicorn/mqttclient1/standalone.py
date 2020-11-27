@@ -8,6 +8,8 @@ config = configparser.ConfigParser()
 config.sections()
 config.read('app.ini')
 
+import eventlet
+
 eventlet.monkey_patch()
 
 MQTT_BROKER_URL = config['app']['MQTT_BROKER_URL']
