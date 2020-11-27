@@ -67,7 +67,9 @@ def handle_mqtt_message(client, userdata, message):
         payload=message.payload.decode()
     )
     socketio.emit('mqtt_message', data=data)
-
+    ##f = open("/tmp/output.jpg", "w")  #there is a output.jpg which is different
+    ##f.write(message.payload)
+    ##f.close()
 
 @mqtt.on_log()
 def handle_logging(client, userdata, level, buf):
