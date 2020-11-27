@@ -79,8 +79,8 @@ def on_connect(client, userdata, rc):
     client.subscribe("PICTURE") 
 
 def on_message(client, userdata, msg):
-    print "Topic : ", msg.topic
-    f = open("/tmp/output.jpg", "w")  #there is a output.jpg which is different
+    print("Topic : ", msg.topic)
+    f = open("output.jpg", "w")  #there is a output.jpg which is different
     f.write(msg.payload)
     f.close()
     
