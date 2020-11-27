@@ -78,7 +78,7 @@ def publish(mqtt_client, topic, payload):
 
 def on_message(client, userdata, msg):
     print("Topic : ", msg.topic)
-    f = open("output.jpg", "w")  #there is a output.jpg which is different
+    f = open("/var/www/acgtest.info/server/gunicorn/mqttclient1/output.jpg", "w")  #there is a output.jpg which is different
     f.write(msg.payload)
     f.close()
     
