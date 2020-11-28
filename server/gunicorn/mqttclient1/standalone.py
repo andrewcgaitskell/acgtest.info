@@ -112,3 +112,4 @@ if __name__ == '__main__':
         print("========")
         if seconds[-1] == "0":
             publish(mqtt_client, "TakeAPicture", 1)
+            time.sleep(1)
