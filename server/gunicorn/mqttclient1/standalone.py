@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqttClient
 import time
+from datetime import datetime
 import json
 import ssl
 
@@ -97,12 +98,13 @@ def main(mqtt_client):
                    MQTT_PASSWORD, BROKER_ENDPOINT, TLS_PORT):
         return False
 
-    publish(mqtt_client, "TakeAPicture", 1)
-
     return True
 
 if __name__ == '__main__':
     mqtt_client = mqttClient.Client()
     while True:
         main(mqtt_client)
-        time.sleep(20)
+        now = datetime.now()
+        seconds = now.strftime("%S")
+        if seconds[-1] = "0":
+            publish(mqtt_client, "TakeAPicture", 1)
