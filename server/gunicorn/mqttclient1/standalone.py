@@ -44,7 +44,7 @@ def on_subscribe(mqttc, obj, mid, granted_qos):
 
 def on_message(client, userdata, msg):
     print("Topic : ", msg.topic)
-    f = open("/var/www/acgtest.info/server/gunicorn/mqttclient1/output.jpg", "w")  #there is a output.jpg which is different
+    f = open("/var/www/acgtest.info/server/gunicorn/mqttclient1/output.jpg", "wb")  #there is a output.jpg which is different
     f.write(msg.payload)
     f.close()
     
