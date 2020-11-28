@@ -53,13 +53,13 @@ mqttc = mqtt.Client()
 # Add message callbacks that will only trigger on a specific subscription match.
 mqttc.message_callback_add("$SYS/broker/messages/#", on_message_msgs)
 mqttc.message_callback_add("$SYS/broker/bytes/#", on_message_bytes)
-mqttc.username_pw_set(mqtt_username, password=mqtt_password)
+mqttc.username_pw_set(MQTT_USERNAME, password=MQTT_PASSWORD)
 mqttc.on_message = on_message
 mqttc.tls_set(ca_certs=TLS_CERT_PATH, certfile=None,
                     keyfile=None, cert_reqs=ssl.CERT_REQUIRED,
                     tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)
 mqttc.tls_insecure_set(False)
-mqttc.connect(broker_endpoint, port=port)
+mqttc.connect(BROKER_ENDPOINT, port=TLS_PORT)
 mqttc.subscribe("$SYS/#", 0)
 mqttc.subscribe("Ping", 0)
 
