@@ -51,8 +51,8 @@ def on_message(mosq, obj, msg):
 mqttc = mqtt.Client()
 
 # Add message callbacks that will only trigger on a specific subscription match.
-mqttc.message_callback_add("$SYS/broker/messages/#", on_message_msgs)
-mqttc.message_callback_add("$SYS/broker/bytes/#", on_message_bytes)
+##mqttc.message_callback_add("$SYS/broker/messages/#", on_message_msgs)
+##mqttc.message_callback_add("$SYS/broker/bytes/#", on_message_bytes)
 mqttc.username_pw_set(MQTT_USERNAME, password=MQTT_PASSWORD)
 mqttc.on_message = on_message
 mqttc.tls_set(ca_certs=TLS_CERT_PATH, certfile=None,
