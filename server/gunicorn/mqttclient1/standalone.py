@@ -105,4 +105,4 @@ if __name__ == '__main__':
     mqtt_client = mqttClient.Client()
     while True:
         main(mqtt_client)
-        time.sleep(10)
+        time.sleep(20)
