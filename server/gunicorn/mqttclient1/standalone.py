@@ -106,5 +106,5 @@ if __name__ == '__main__':
         main(mqtt_client)
         now = datetime.now()
         seconds = now.strftime("%S")
-        if seconds[-1] = "0":
+        if seconds[-1] == "0":
             publish(mqtt_client, "TakeAPicture", 1)
